@@ -1,0 +1,107 @@
+// Inclusão de bibliotecas
+#include <stdio.h> 
+#include <string.h> 
+#include <stdlib.h>
+//Estou definindo o tamanho global da variavel SIZE, neste caso é 20
+#define size 20
+
+//Definindo variaveis globais que podem ser usadas em qualquer parte do programa em qualquer função
+char nome [size][70];
+char cpf [size][70];
+char tel[size][70];
+char mail[size][100];
+int op;
+void cadastro();
+void pesquisa();
+
+//Começa meu programa onde sera listado um menu com as opções para seguir
+int main(){
+  do{
+  	system("cls");
+  	printf("\n-----------------------------Menu----------------------------------\n\n\n 1 - Cadastrar -------------- 2 - Pesquisar -------------- 3 - Sair");
+  	scanf("%d", &op);
+  	switch(op){
+  		case 1:
+  			cadastro();
+  			break;
+  			
+  		case 2:
+  			pesquisa();
+  			break;
+  			
+  		case 3:
+  			return 0;
+  			
+  		default:
+  			printf("Opcao invalida.");
+	  }
+  }while (op != 4);
+}
+
+//Crio uma nova função para cadastrar pessoa.
+  void cadastro(){
+  	
+  	static int linha;
+
+//O laço do while é utilizado para criar no minimo um cadastro, assim podendo ter a opção de criar mais cadastros.    
+    		do{
+    			printf("Cliente n: %d", linha);
+    		
+      			printf("\nNome completo: ");
+      			scanf("%s", &nome[linha]);
+    
+      			printf("CPF(somente numeros): ");
+     		 	scanf("%s", &cpf[linha]);
+   
+     		 	printf("Telefone(DDD+numero): ");
+      			scanf("%s", &tel[linha]);
+   
+      			printf("E-mail: ");
+      			scanf("%s", &mail[linha]);
+   
+      			printf("Deseja incluir outro cadastro? (1 para Sim ou 2 para Nao)\n\n\n");
+     		 	scanf("%d", &op);
+   
+      linha++;
+    }while(op == 1);
+}
+//Crio minha função pesquisa, para pesquisar os nomes já cadastrados
+	void pesquisa(){
+		char cpfpes[50];
+		int i;
+		char nomepesquisa[100];
+			
+			do{
+				printf("Digite 1 para pesquisar cpf, 2 para pesquisar pelo nome: ");
+				scanf("%d", &op);
+				
+				switch(op){
+					case 1:
+						printf("Digite o cpf: ");
+						scanf("%s", cpfpes);
+						for(i = 0; i < size; i++){
+							if(strcmp(cpf[i], cpfpes)==0){
+								printf("\nNome: %s \nCPF: %s \nTelefone: %s \nE-mail: %s", nome[i], cpf[i], tel[i], mail[i]);
+							}
+						}
+						break;
+					case 2:
+						printf("Digite o nome da pessoa: ");
+						scanf("%s", nomepesquisa);
+						for(i = 0; i < size; i++){
+							if(strcmp(nome[i], nomepesquisa)==0){
+								printf("\nNome: %s \nCPF: %s \nTeleofone: %s \nE-mail: %s", nome[i], cpf[i], tel[i], mail[i]);	
+							}
+						}
+						break;
+						default:
+							printf("\nOpçao invalida");
+							break;
+				  	}
+				  	printf("\nDigite 0 para continuar pesquisando: ");
+				  	scanf("%d", &op);
+				}
+				while(op == 0);
+	}
+
+  
